@@ -8,7 +8,7 @@ import { render } from 'react-dom';
 
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
   Link
 } from "react-router-dom";
@@ -22,7 +22,7 @@ class App extends Component {
       <div id="wrapper">
         <Navigation />
         <div id="content-wrapper" class="d-flex flex-column">
-          <Switch>
+          <Routes>
             <Route path="/companies">
               <Companies />
             </Route>
@@ -32,7 +32,7 @@ class App extends Component {
             <Route path="/companies/:company">
               <Company />
             </Route>
-          </Switch>
+          </Routes>
         </div>
         <Footer />
       </div>
