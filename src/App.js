@@ -29,7 +29,7 @@ class App extends Component {
             <Route path="/analytics">
               <Analytics />
             </Route>
-            <Route path="/companies/:company">
+            <Route path="/company">
               <Company />
             </Route>
           </Routes>
@@ -313,7 +313,7 @@ function Companies() {
 
 
 function Company() {
-  let { companyID } = useParams();
+  let { companyID } = 12;
   return <h3>Requested Company ID: {companyID}</h3>;
 }
 
