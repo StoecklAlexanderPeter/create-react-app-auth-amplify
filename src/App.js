@@ -8,7 +8,7 @@ import { render } from 'react-dom';
 
 import {
   BrowserRouter as Router,
-  Routes,
+  Switch,
   Route,
   Link
 } from "react-router-dom";
@@ -20,100 +20,113 @@ class App extends Component {
   render() {
     return (
       <div id="wrapper">
-        <Navigation />
-        <div id="content-wrapper" class="d-flex flex-column">
-          <Routes>
-            <Route path="/companies">
-              <Companies />
-            </Route>
-            <Route path="/analytics">
-              <Analytics />
-            </Route>
-            <Route path="/company">
-              <Company />
-            </Route>
-          </Routes>
-        </div>
-        <Footer />
+        <Router>
+          <Navigation />
+          <div id="content-wrapper" className="d-flex flex-column">
+            <Switch>
+              <Route exact path="/">
+                <Companies />
+              </Route>
+              <Route exact path="/analytics">
+                <Analytics />
+              </Route>
+              <Route path="/company">
+                <Company />
+              </Route>
+            </Switch>
+            <Footer />
+          </div>
+        </Router>
       </div>
     );
   }
 }
 
-function Analytics() {
-  return (
-    <div id="content">
-    <div class="container-fluid pt-5">
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Analytics</h1>
-            <button onclick="exportCSV()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-download fa-sm text-white-50"></i> Export Analytics CSV</button>
+
+export class Analytics extends Route {
+
+  exportCSV() {
+    console.log("Yes i Export very much");
+  }
+
+  filter() {
+    console.log("this is awesome ")
+  }
+
+  render() {
+    return(
+      <div id="content">
+    <div className="container-fluid pt-5">
+        <div className="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 className="h3 mb-0 text-gray-800">Analytics</h1>
+            <button onClick={this.exportCSV.bind(this)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    className="fas fa-download fa-sm text-white-50"></i> Export Analytics CSV</button>
         </div>
 
-        <div class="row">
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+        <div className="row">
+            <div className="col-xl-3 col-md-6 mb-4">
+                <div className="card border-left-primary shadow h-100 py-2">
+                    <div className="card-body">
+                        <div className="row no-gutters align-items-center">
+                            <div className="col mr-2">
+                                <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     PDF's generated</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="overview_pdfs_generated">XXX</div>
+                                <div className="h5 mb-0 font-weight-bold text-gray-800" id="overview_pdfs_generated">XXX</div>
                             </div>
-                            <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <div className="col-auto">
+                                <i className="fas fa-calendar fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+            <div className="col-xl-3 col-md-6 mb-4">
+                <div className="card border-left-success shadow h-100 py-2">
+                    <div className="card-body">
+                        <div className="row no-gutters align-items-center">
+                            <div className="col mr-2">
+                                <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     PDF opened</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="overview_pdfs_opened">XXX</div>
+                                <div className="h5 mb-0 font-weight-bold text-gray-800" id="overview_pdfs_opened">XXX</div>
                             </div>
-                            <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <div className="col-auto">
+                                <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+            <div className="col-xl-3 col-md-6 mb-4">
+                <div className="card border-left-info shadow h-100 py-2">
+                    <div className="card-body">
+                        <div className="row no-gutters align-items-center">
+                            <div className="col mr-2">
+                                <div className="text-xs font-weight-bold text-info text-uppercase mb-1">
                                     Email's collected
                                 </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="overview_emails_collected">XXX</div>
+                                <div className="h5 mb-0 font-weight-bold text-gray-800" id="overview_emails_collected">XXX</div>
                             </div>
-                            <div class="col-auto">
-                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            <div className="col-auto">
+                                <i className="fas fa-clipboard-list fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+            <div className="col-xl-3 col-md-6 mb-4">
+                <div className="card border-left-warning shadow h-100 py-2">
+                    <div className="card-body">
+                        <div className="row no-gutters align-items-center">
+                            <div className="col mr-2">
+                                <div className="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                     Books Called</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="overview_books_called">XXX</div>
+                                <div className="h5 mb-0 font-weight-bold text-gray-800" id="overview_books_called">XXX</div>
                             </div>
-                            <div class="col-auto">
-                                <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            <div className="col-auto">
+                                <i className="fas fa-comments fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -122,17 +135,17 @@ function Analytics() {
         </div>
 
 
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-12 mb-1">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+        <div className="row">
+            <div className="col-md-4 mb-4">
+                <div className="card border-left-primary shadow h-100 py-2">
+                    <div className="card-body">
+                        <div className="row no-gutters align-items-center">
+                            <div className="col-12 mb-1">
+                                <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Canton</div>
                             </div>
-                            <div class="col-12">
-                                <select id="selected_canton" class="form-select" aria-label="Select Company Type">
+                            <div className="col-12">
+                                <select id="selected_canton" className="form-select" aria-label="Select Company Type">
                                     <option value="all">All</option>
                                     <option value="SG">SG</option>
                                     <option value="ZH">ZH</option>
@@ -143,16 +156,16 @@ function Analytics() {
                 </div>
             </div>
 
-            <div class="col-md-4 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-12 mb-1">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+            <div className="col-md-4 mb-4">
+                <div className="card border-left-success shadow h-100 py-2">
+                    <div className="card-body">
+                        <div className="row no-gutters align-items-center">
+                            <div className="col-12 mb-1">
+                                <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
                                     Company Type</div>
                             </div>
-                            <div class="col-12">
-                                <select id="selected_company_type" class="form-select" aria-label="Select Canton">
+                            <div className="col-12">
+                                <select id="selected_company_type" className="form-select" aria-label="Select Canton">
                                     <option value="all">All</option>
                                     <option value="Aktiengesellschaft">Aktiengesellschaft</option>
                                     <option value="Gesellschaft mit beschränkter Haftung">GmbH</option>
@@ -165,33 +178,33 @@ function Analytics() {
                 </div>
             </div>
 
-            <div class="col-md-4 mb-4">
-                <button onclick="filter()" type="button" class="btn btn-primary btn-lg btn-block">Filter</button>
+            <div className="col-md-4 mb-4">
+                <button onClick={this.filter.bind(this)} type="button" className="btn btn-primary btn-lg btn-block">Filter</button>
             </div>
 
         </div>
 
-        <div class="row">
-            <div class="col-xl-8 col-lg-7">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Sales Pipeline</h6>
+        <div className="row">
+            <div className="col-xl-8 col-lg-7">
+                <div className="card shadow mb-4">
+                    <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 className="m-0 font-weight-bold text-primary">Sales Pipeline</h6>
                     </div>
-                    <div class="card-body">
-                        <div class="chart-area" id="pdfs_total_container">
+                    <div className="card-body">
+                        <div className="chart-area" id="pdfs_total_container">
                             <canvas id="pdfs_total"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-4 col-lg-5">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">PDF Conversion Rates </h6>
+            <div className="col-xl-4 col-lg-5">
+                <div className="card shadow mb-4">
+                    <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 className="m-0 font-weight-bold text-primary">PDF Conversion Rates </h6>
                     </div>
-                    <div class="card-body">
-                        <div class="chart-pie pt-4 pb-2" id="pdfs_conversion_rate_by_type_container">
+                    <div className="card-body">
+                        <div className="chart-pie pt-4 pb-2" id="pdfs_conversion_rate_by_type_container">
                             <canvas id="pdfs_conversion_rate_by_type"></canvas>
                         </div>
                     </div>
@@ -200,14 +213,14 @@ function Analytics() {
         </div>
 
 
-        <div class="row">
-            <div class="col-12">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">PDF's by Date</h6>
+        <div className="row">
+            <div className="col-12">
+                <div className="card shadow mb-4">
+                    <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 className="m-0 font-weight-bold text-primary">PDF's by Date</h6>
                     </div>
-                    <div class="card-body">
-                        <div class="chart-area" id="pdfs_by_date_container">
+                    <div className="card-body">
+                        <div className="chart-area" id="pdfs_by_date_container">
                             <canvas id="pdfs_by_date"></canvas>
                         </div>
                     </div>
@@ -215,27 +228,27 @@ function Analytics() {
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-xl-8 col-lg-7">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Website Conversion Rates</h6>
+        <div className="row">
+            <div className="col-xl-8 col-lg-7">
+                <div className="card shadow mb-4">
+                    <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 className="m-0 font-weight-bold text-primary">Website Conversion Rates</h6>
                     </div>
-                    <div class="card-body">
-                        <div class="chart-area" id="website_total_container">
+                    <div className="card-body">
+                        <div className="chart-area" id="website_total_container">
                             <canvas id="website_total"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-4 col-lg-5">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Website Conversion Rates</h6>
+            <div className="col-xl-4 col-lg-5">
+                <div className="card shadow mb-4">
+                    <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 className="m-0 font-weight-bold text-primary">Website Conversion Rates</h6>
                     </div>
-                    <div class="card-body">
-                        <div class="chart-pie pt-4 pb-2" id="website_conversion_rates_container">
+                    <div className="card-body">
+                        <div className="chart-pie pt-4 pb-2" id="website_conversion_rates_container">
                             <canvas id="website_conversion_rates"></canvas>
                         </div>
                     </div>
@@ -244,36 +257,48 @@ function Analytics() {
         </div>
     </div>
 </div>
-  );
+    );
+  }
 }
 
 
-function Companies() {
-  return (
-    <div id="content">
 
-    <div class="container-fluid pt-5">
+class Companies extends Route {
 
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Firmenübersicht</h1>
+  createPDFs(number) {
+    console.log(number);
+  }
+
+  exportCSV() {
+    console.log("Yes");
+  }
+
+  render() {
+    return (
+      <div id="content">
+
+    <div className="container-fluid pt-5">
+
+        <div className="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 className="h3 mb-0 text-gray-800">Firmenübersicht</h1>
             <div>
-                <button onclick="exportCSV()" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Export Companies CSV</button>
-                <button onclick="createPDFs(1)" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Create PDF's</button>
+                <button onClick={this.exportCSV.bind(this)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i className="fas fa-download fa-sm text-white-50"></i> Export Companies CSV</button>
+                <button onClick={this.createPDFs.bind(1)} className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i className="fas fa-download fa-sm text-white-50"></i> Create PDF's</button>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+        <div className="row">
+            <div className="col-12 mb-4">
+                <div className="card border-left-primary shadow h-100 py-2">
+                    <div className="card-body">
+                        <div className="row no-gutters align-items-center">
+                            <div className="col mr-2">
+                                <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Firmen gegründet (Monat)</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="overview_companies_created">XXX</div>
+                                <div className="h5 mb-0 font-weight-bold text-gray-800" id="overview_companies_created">XXX</div>
                             </div>
-                            <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            <div className="col-auto">
+                                <i className="fas fa-calendar fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -281,24 +306,24 @@ function Companies() {
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Companies</h6>
+        <div className="row">
+            <div className="col-12">
+                <div className="card shadow mb-4">
+                    <div className="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 className="m-0 font-weight-bold text-primary">Companies</h6>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col d-flex justify-content-center" id="loading">
-                                <div class="spinner-border text-primary" role="status">
-                                    <span class="sr-only">Loading...</span>
+                    <div className="card-body">
+                        <div className="row">
+                            <div className="col d-flex justify-content-center" id="loading">
+                                <div className="spinner-border text-primary" role="status">
+                                    <span className="sr-only">Loading...</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="companies" width="100%" cellspacing="0"></table>
+                        <div className="row">
+                            <div className="col">
+                                <div className="table-responsive">
+                                    <table className="table table-bordered" id="companies" width="100%" cellSpacing="0"></table>
                                 </div>
                             </div>
                         </div>
@@ -307,22 +332,27 @@ function Companies() {
             </div>
         </div>
     </div>
-</div>
-  );
+    </div>
+    );
+  }
+
 }
 
 
-function Company() {
-  let { companyID } = 12;
-  return <h3>Requested Company ID: {companyID}</h3>;
+
+
+class Company extends Route {
+  render() {
+    return <h3>Requested Company ID: </h3>;
+  }
 }
 
 class Footer extends React.Component {
   render() {
     return (
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
+      <footer className="sticky-footer bg-white">
+        <div className="container my-auto">
+            <div className="copyright text-center my-auto">
                 <span>Copyright &copy; ALENI Webagentur bei Alexander Stöckl & Nikola Mitrovic 2021</span>
             </div>
         </div>
@@ -333,31 +363,29 @@ class Footer extends React.Component {
 class Navigation extends React.Component {
   render() {
     return (
-      <Router>
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-text mx-3">ALENI Zefix Screener</div>
-            </a>
-            <hr class="sidebar-divider" />
-            <div class="sidebar-heading">
+        <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <Link className="sidebar-brand d-flex align-items-center justify-content-center" to="/">
+                <div className="sidebar-brand-text mx-3">ALENI Zefix Screener</div>
+            </Link>
+            <hr className="sidebar-divider" />
+            <div className="sidebar-heading">
                 Site Overview
             </div>
-            <li class="nav-item">
-                <Link class="nav-link" to="companies">
-                    <i class="fas fa-fw fa-table"></i>
+            <li className="nav-item">
+                <Link className="nav-link" to="/"> 
+                    <i className="fas fa-fw fa-table"></i>
                     <span>Companies</span></Link>
             </li>
-            <li class="nav-item">
-                <Link class="nav-link" to="analytics">
-                    <i class="fas fa-fw fa-chart-area"></i>
+            <li className="nav-item">
+                <Link className="nav-link" to="/analytics">
+                    <i className="fas fa-fw fa-chart-area"></i>
                     <span>Analytics</span></Link>
             </li>
-            <hr class="sidebar-divider" />
-            <li class="nav-item">
+            <hr className="sidebar-divider" />
+            <li className="nav-item">
               <AmplifySignOut />
             </li>
         </ul>
-      </Router>
     );
 
   }
